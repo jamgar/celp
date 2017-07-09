@@ -14,6 +14,7 @@ const path = require('path'),
 const getConfig = require('hjs-webpack');
 
 const isDev = NODE_ENV === 'development';
+const isTest = NODE_ENV === 'test';
 
 const root = resolve(__dirname);
 const src = join(root, 'src');
@@ -86,8 +87,29 @@ config.resolve.root = [src, modules]
 config.resolve.alias = {
   'css': join(src, 'styles'),
   'containers': join(src, 'containers'),
-  'components': join(src, 'components')
+  'components': join(src, 'components'),
   'utils': join(src, 'utils')
 }
 
+if(isTest) {
+  config.externals = {
+    'react/addons': true,
+    'react/lib/ReactContext': true,
+    'react/lib/ExecutionEnvironment': true,
+  }
+//  config.module.noParse = /[/\\]sinon\.js/;
+//  config.resolve.alias['sinon'] = 'sinon/pkg/sinon';
+
+//  config.plugins = config.plugins.filter(p => {
+//    const name = p.constructor.toString();
+//    const fnName = name.match(/^function(.*)\((.*\))/)
+
+//    const idx = [
+//      'DedupePlugin',
+//      'UglifyJsPlugin'
+//    ].indexOf(fnName[1]);
+//    return idx < 0;
+//  })
+}
+
 module.exports = config;
