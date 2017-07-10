@@ -1,5 +1,4 @@
-// NOTE: Left off at npm install -g karma-cli
-// ...
+require('babel-register');
 
 const NODE_ENV = process.env.NODE_ENV;
 const dotenv = require('dotenv');
@@ -97,19 +96,19 @@ if(isTest) {
     'react/lib/ReactContext': true,
     'react/lib/ExecutionEnvironment': true,
   }
-//  config.module.noParse = /[/\\]sinon\.js/;
-//  config.resolve.alias['sinon'] = 'sinon/pkg/sinon';
+  config.module.noParse = /[/\\]sinon\.js/;
+  config.resolve.alias['sinon'] = 'sinon/pkg/sinon';
 
-//  config.plugins = config.plugins.filter(p => {
-//    const name = p.constructor.toString();
-//    const fnName = name.match(/^function(.*)\((.*\))/)
+  config.plugins = config.plugins.filter(p => {
+    const name = p.constructor.toString();
+    const fnName = name.match(/^function(.*)\((.*\))/)
 
-//    const idx = [
-//      'DedupePlugin',
-//      'UglifyJsPlugin'
-//    ].indexOf(fnName[1]);
-//    return idx < 0;
-//  })
+    const idx = [
+      'DedupePlugin',
+      'UglifyJsPlugin'
+    ].indexOf(fnName[1]);
+    return idx < 0;
+  })
 }
-
+
 module.exports = config;
